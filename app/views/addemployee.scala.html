@@ -1,0 +1,30 @@
+@* addemployee Template File *@
+@(pagetitle: String)
+@main("Home"){
+<form>
+  <div class="form-group">
+    <label for="empname">Name</label>
+    <input type="text" class="form-control" id="empname" placeholder="Enter Name">
+  </div>
+  <div class="form-group">
+    <label for="idcompany">Company</label>
+    <input type="text" class="form-control" id="idcompany" placeholder="Enter Company">
+  </div>
+  <div class="form-group">
+    <label for="idemail">Email</label>
+    <input type="email" class="form-control" id="idemail" placeholder="Enter Email">
+  </div>
+  <div class="form-group">
+    <label for="idphone">Phone</label>
+    <input type="phone" class="form-control" id="idphone" placeholder="Enter Phone">
+  </div>
+  <div class="form-group">
+    <label for="iddateofjoin">Date of Join</label>
+    <input type="date" class="form-control" id="iddateofjoin" placeholder="Enter Date of Joining">
+  </div>
+  <button type="submit" class="btn btn-primary">Add Employee</button> Or 
+  <a button type="submit" class="btn btn-primary" href="@routes.Application.index">Cancel</button>
+</form>
+}
+
+

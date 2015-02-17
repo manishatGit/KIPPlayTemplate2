@@ -1,0 +1,21 @@
+@(pagetitle: String)(content: Html)
+<!-- Main contents: render all the pages in one page  -->
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+    @title(pagetitle)
+    <!-- Includes Css required for the page Home from stylesheets template -->
+    @stylesheets(pagetitle)		
+        <!-- Includes javascript required for the page Home from stylesheets template -->
+    @scripts(pagetitle)    
+   </head>
+    <body class="mainbody">
+    @header()
+	<!-- Page Navigation -->
+	@navigation()	
+	<!-- Data View Port  -->
+     @content
+    </body>
+</html>
