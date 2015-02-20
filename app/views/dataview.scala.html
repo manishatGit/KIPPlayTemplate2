@@ -1,7 +1,7 @@
 @* DataView Template File *@
 <!-- Angular app myapp handles the rendering of employee data from controller Employee-->
 <!-- Adding the main ng controller to render the employees json data on the page -->
-	<div class="container-fluid" data-ng-app="myapp" data-ng-controller="EmpController" data-ng-init="limitData=10"data-ng-app="myapp" data-ng-controller="EmpController" data-ng-init="limitData=10">		
+	<div class="container-fluid" data-ng-app="myapp" data-ng-controller="EmpController" data-ng-init="limitData=10">		
 		<div class="row" style="background-color: white;">
 			<!-- Handling sort on the click of table headers -->
 			<table class="table table-striped">
@@ -15,7 +15,7 @@
 				</tr>
 				<!-- Rendering Employee Records data by filtering with given fields -->
 				<tr
-					data-ng-repeat="x in results">
+					data-ng-repeat="x in results|limitTo:limitData">
 					<td>{{x.name}}</td>
 					<td>{{x.company}}</td>
 					<td>{{x.email}}</td>
@@ -24,4 +24,12 @@
 				</tr>
 			</table>
 		</div>
+		     <!-- Employee data pagination -->
+		
+		<nav>
+  			<ul class="pagination">
+    		<li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+    		<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+  			</ul>
+		</nav>
 	</div>
