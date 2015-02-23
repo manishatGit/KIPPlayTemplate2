@@ -1,9 +1,19 @@
+@(empList: List[Knolder])
+
 @* DataView Template File *@
 <!-- Angular app myapp handles the rendering of employee data from controller Employee-->
 <!-- Adding the main ng controller to render the employees json data on the page -->
 	<div class="container-fluid" data-ng-app="myapp" data-ng-controller="EmpController" data-ng-init="limitData=10">		
 		<div class="row" style="background-color: white;">
 			<!-- Handling sort on the click of table headers -->
+
+			@for(l <- empList){
+				@println(l.id)
+				@println(l.name)
+				@println(l.email)
+				@println(l.mobile)
+			}
+
 			<table class="table table-striped">
 				<tr>
 					<!-- adding sort on click -->
@@ -14,6 +24,9 @@
 					<th ng-click="Sort('date')">Date</th>
 				</tr>
 				<!-- Rendering Employee Records data by filtering with given fields -->
+				
+			
+				
 				<tr
 					data-ng-repeat="x in results|limitTo:limitData">
 					<td>{{x.name}}</td>

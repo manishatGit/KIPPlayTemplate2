@@ -1,14 +1,61 @@
-@(appendUrl:String)
-<!-- This Page composes the index.scala.html page by calling different html pages using  -->
-<!-- scala template feature of play -->
+@(empList: List[Knolder])
 
-@main(appendUrl){
-<!-- Employee Dataview -->
-	
-	@dataview()	
-		}
-	
-	
-
-
-
+@* DataView Template File *@
+<!-- Angular app myapp handles the rendering of employee data from controller Employee-->
+<!-- Adding the main ng controller to render the employees json data on the page -->
+@main("Home"){	
+	<div class="container-fluid" data-ng-app="myapp" data-ng-controller="EmpController" data-ng-init="limitData=10">		
+		<div class="row" style="background-color: white;">
+         
+			<!-- Dynamic data from database -->         
+		<b><h4>Dynamic data from Database</h4></b>
+         <table class="table table-striped">
+        	<th>Id</th>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Phone</th>
+        	@for(l <- empList){
+			<tr>
+			    	<td>@l.id</td>
+					<td>@l.name</td>
+					<td>@l.email</td>
+					<td>@l.mobile</td>
+			</tr>
+			}
+         </table>
+		<b><h4>Static data from Json</h4></b>
+			<!-- Handling sort on the click of table headers -->
+				
+			<table class="table table-striped">
+				<tr>
+					<!-- adding sort on click -->
+					<th ng-click="Sort('name')">Name</th>
+					<th ng-click="Sort('company')">Company</th>
+					<th ng-click="Sort('email')">Email</th>
+					<th ng-click="Sort('phone')">Phone</th>
+					<th ng-click="Sort('date')">Date</th>
+				</tr>
+				<!-- Rendering Employee Records data by filtering with given fields -->
+				
+			
+				
+				<tr
+					data-ng-repeat="x in results|limitTo:limitData">
+					<td>{{x.name}}</td>
+					<td>{{x.company}}</td>
+					<td>{{x.email}}</td>
+					<td>{{x.phone}}</td>
+					<td>{{x.date |date:'medium'}}</td>
+				</tr>
+			</table>
+		</div>
+		     <!-- Employee data pagination -->
+		
+		<nav>
+  			<ul class="pagination">
+    		<li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+    		<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+  			</ul>
+		</nav>
+	</div>
+	}

@@ -10,5 +10,7 @@ libraryDependencies ++= Seq(
   jdbc,
   anorm,
   cache,
-  ws
+  ws,
+  "com.typesafe.play" %% "play-slick" % "0.8.1",
+  "postgresql"              % "postgresql"    % "9.1-901.jdbc4"  
 )
