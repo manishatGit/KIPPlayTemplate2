@@ -1,0 +1,29 @@
+@* editForm Template File *@
+@import helper._
+
+@(knolderId: Int, knolderForm: Form[Knolder])
+@main("Home"){
+	  <!-- Begin page content -->
+	<div class="container">
+		<div class="page-header">
+			<h1>Edit Knolder</h1>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">
+				@form(routes.Application.updateKnolder(knolderId)) {
+				<div class="form-group">	
+					<div disabled="true">
+					@inputText(knolderForm("id"), '_label -> "Id")
+					</div>										
+					@inputText(knolderForm("name"), '_label -> "Name")
+					@inputText(knolderForm("email"), '_label -> "Email")
+					@inputText(knolderForm("mobile"), '_label -> "Phone")
+					<div class="actions">
+						<input type="submit" value="Save"	class="btn btn-primary"> or 
+						<a href="@routes.Application.index" class="btn btn-default">Cancel</a>
+					</div>
+				</div>
+				}
+			</div>
+		}

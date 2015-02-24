@@ -1,61 +1,37 @@
-@(empList: List[Knolder])
+@(knolList: List[Knolder])(implicit flash:play.api.mvc.Flash)
 
 @* DataView Template File *@
-<!-- Angular app myapp handles the rendering of employee data from controller Employee-->
-<!-- Adding the main ng controller to render the employees json data on the page -->
+<!--Rendering Data from Postgresql  database on -->
 @main("Home"){	
 	<div class="container-fluid" data-ng-app="myapp" data-ng-controller="EmpController" data-ng-init="limitData=10">		
 		<div class="row" style="background-color: white;">
-         
+         @flash.get("Success").map { message =>
+           <div class="alert alert-dismissable alert-success">
+               <button type="button" class="close" data-dismiss="close">×</button>
+               <strong>Well done!</strong> @message
+           </div>
+       }
 			<!-- Dynamic data from database -->         
-		<b><h4>Dynamic data from Database</h4></b>
+		<b><h4>View Knolders</h4></b>
          <table class="table table-striped">
         	<th>Id</th>
 			<th>Name</th>
 			<th>Email</th>
 			<th>Phone</th>
-        	@for(l <- empList){
+			<th>Remove</th>
+        	@for(l <- knolList){
 			<tr>
 			    	<td>@l.id</td>
-					<td>@l.name</td>
-					<td>@l.email</td>
-					<td>@l.mobile</td>
+			    	<td><a href="@routes.Application.edit(l.id.get)">@l.name</td>
+			    	<td>@l.email</td>
+			    	<!-- Adding 'edit' Action on href-->
+			    	<td>@l.mobile</a></td>
+			    	<!-- Adding 'remove' Action on href-->
+			    	<td style="vertical-align:top;text-align:"><a href="@routes.Application.deleteKnol(l.id.get)"><h4>X </h4></a></td>
 			</tr>
 			}
-         </table>
-		<b><h4>Static data from Json</h4></b>
-			<!-- Handling sort on the click of table headers -->
-				
-			<table class="table table-striped">
-				<tr>
-					<!-- adding sort on click -->
-					<th ng-click="Sort('name')">Name</th>
-					<th ng-click="Sort('company')">Company</th>
-					<th ng-click="Sort('email')">Email</th>
-					<th ng-click="Sort('phone')">Phone</th>
-					<th ng-click="Sort('date')">Date</th>
-				</tr>
-				<!-- Rendering Employee Records data by filtering with given fields -->
-				
-			
-				
-				<tr
-					data-ng-repeat="x in results|limitTo:limitData">
-					<td>{{x.name}}</td>
-					<td>{{x.company}}</td>
-					<td>{{x.email}}</td>
-					<td>{{x.phone}}</td>
-					<td>{{x.date |date:'medium'}}</td>
-				</tr>
 			</table>
-		</div>
+         </div>
 		     <!-- Employee data pagination -->
-		
-		<nav>
-  			<ul class="pagination">
-    		<li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-    		<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-  			</ul>
-		</nav>
 	</div>
-	}
+}

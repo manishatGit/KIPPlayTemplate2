@@ -3,8 +3,17 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
-GET     /addEmp                          controllers.Application.addemployee
+GET    /               controllers.Application.index
+GET    /addEmp         controllers.Application.create
+
+POST   /addEmp         controllers.Application.save
+
+GET    /delEmp         controllers.Application.deleteKnol(id: Int)
+
+GET    /editEmp        controllers.Application.edit(knolId: Int)
+
+POST   /updateEmp      controllers.Application.updateKnolder(knolderId: Int)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET    /assets/*file   controllers.Assets.at(path="/public", file)
+

@@ -1,0 +1,29 @@
+@(empForm: Form[Knolder]) 
+
+@import helper._
+@main("Home") {
+	<!-- Begin page content -->
+	<div class="container">
+		<div class="page-header">
+			<h1>Add Knolder</h1>
+		</div>
+		<div class="row">
+				<div class="col-md-8">
+					@form(routes.Application.save()) {	
+				<div class="form-group">
+					@inputText(empForm("id"), '_label -> "Id")
+					@inputText(empForm("name"), '_label -> "Name")
+					@inputText(empForm("email"), '_label -> "Email")
+					@inputText(empForm("mobile"), '_label -> "Phone")
+				<div class="actions">
+						<input type="submit" value="Create this Knolder" class="btn btn-primary"> or 
+						<a href="@routes.Application.index" class="btn btn-default">Cancel</a>
+				</div>
+				}	    
+				</div>			
+		</div>
+			<div class="col-md-4">
+			</div>
+		</div>
+	</div>
+}
