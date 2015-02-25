@@ -3,17 +3,19 @@
 # ~~~~
 
 # Home page
-GET    /               controllers.Application.index
-GET    /addEmp         controllers.Application.create
+GET    /               controllers.Application.index(currentPage:Int=0,pageSize:Int=4)
 
-POST   /addEmp         controllers.Application.save
+GET    /addKnol         controllers.Application.create
 
-GET    /delEmp         controllers.Application.deleteKnol(id: Int)
+POST   /addKnol         controllers.Application.save
 
-GET    /editEmp        controllers.Application.edit(knolId: Int)
+GET    /delknol         controllers.Application.deleteKnol(id: Int)
 
-POST   /updateEmp      controllers.Application.updateKnolder(knolderId: Int)
+GET    /editknol        controllers.Application.edit(knolId: Int)
 
+POST   /updateknol      controllers.Application.updateKnolder(knolderId: Int)
+
+GET /knolder			   controllers.Application.paginationIndex(currentPage:Int, pageSize:Int)
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file   controllers.Assets.at(path="/public", file)
 

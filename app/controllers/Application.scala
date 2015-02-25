@@ -34,11 +34,24 @@ object Application extends Controller {
    * *********************************************************************
    */
 
-  def index: Action[AnyContent] = DBAction { implicit rs =>
-    Ok(views.html.index(knolTable.getKnolderList()))
-
+  def index(currentPage: Int = 0, pageSize: Int = 4) = DBAction { implicit rs =>
+    Ok(views.html.index(knolTable.getKnolderList(currentPage, pageSize), knolTable.getKnolCount(), currentPage, pageSize))
   }
-  /**
+
+  /*
+   * Handles Pagination calls
+   */
+
+  def paginationIndex(currentPage: Int, pageSize: Int) = DBAction { implicit rs =>
+    if (currentPage > ((knolTable.getKnolCount() / pageSize)))
+      Ok(views.html.index(knolTable.getKnolderList(currentPage - 1, pageSize), knolTable.getKnolCount(), currentPage - 1, pageSize))
+    else if (currentPage < 0)
+      Ok(views.html.index(knolTable.getKnolderList(0, pageSize), knolTable.getKnolCount(), 0, pageSize))
+    else
+      Ok(views.html.index(knolTable.getKnolderList(currentPage , pageSize), knolTable.getKnolCount(), currentPage, pageSize))
+  }
+
+  /*
    * *****************************************
    * Display the 'new Knolder form'.        *
    * *****************************************
@@ -54,7 +67,7 @@ object Application extends Controller {
    * @param id of the Knolder to edit
    */
   def edit(knolId: Int) = DBAction { implicit request =>
-     knolTable.getKnolderById(knolId) match {
+    knolTable.getKnolderById(knolId) match {
       case knolder => Ok(html.editForm(knolId, knolForm.fill(knolder)))
     }
   }
@@ -81,7 +94,7 @@ object Application extends Controller {
     knolTable.deleteKnolder(id)
     Home.flashing("success" -> "Emp has been deleted")
   }
-  
+
   /**
    * Handle the 'edit form' submission
    *
@@ -96,5 +109,9 @@ object Application extends Controller {
         Home.flashing("success" -> s"Company ${knolder.name} has been updated")
       })
   }
+  /**
+   * Returns record count into the database
+   *
+   */
 }
 

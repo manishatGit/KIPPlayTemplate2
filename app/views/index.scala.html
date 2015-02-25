@@ -1,5 +1,4 @@
-@(knolList: List[Knolder])(implicit flash:play.api.mvc.Flash)
-
+@(knolList: List[Knolder],knolCount:Int, currentPage:Int,pageSize:Int)(implicit flash:play.api.mvc.Flash)
 @* DataView Template File *@
 <!--Rendering Data from Postgresql  database on -->
 @main("Home"){	
@@ -12,7 +11,7 @@
            </div>
        }
 			<!-- Dynamic data from database -->         
-		<b><h4>View Knolders</h4></b>
+		<b><h4>Total Knolders:  @knolCount  </h4></b>
          <table class="table table-striped">
         	<th>Id</th>
 			<th>Name</th>
@@ -32,6 +31,13 @@
 			}
 			</table>
          </div>
-		     <!-- Employee data pagination -->
+		     <!-- Knolder data pagination -->
+		     <nav>
+  				<ul class="pagination">
+    				<li class="active"><a href="@routes.Application.paginationIndex((currentPage-1), pageSize)" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+    				<li class="active"><a href="#">Page <b>@currentPage</b> of <b>(@(knolCount/pageSize))</b>  <span class="sr-only">(current)</span></a></li>
+    				<li class="active"><a href="@routes.Application.paginationIndex((currentPage+1), pageSize)" aria-label="Next"><span aria-hidden="true">&laquo;</span></a></li>
+  			</ul>
+</nav>
 	</div>
 }
